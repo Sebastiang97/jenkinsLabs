@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: test
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /
+      prometheus.io/port:   '8080'
+spec:
+  selector: 
+    app: jenkins-server
+    privileged: true
+    user: root
+  type: NodePort  
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 31000
